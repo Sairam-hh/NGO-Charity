@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>About Us — NGO Charity</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;800&display=swap');
+      :root {
+        --m: #241522;
+        --a: #321b31;
+        --w: #54243b;
+        --t: #c65d4a;
+        --c: #d97862;
+        --g: #d7b77a;
+        --s: #e7d7c5;
+        --cr: #f6efe7;
+        --tau: #8f817a;
+        --bd: rgba(215, 183, 122, 0.24);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--cr);
+        color: #181416;
+        font: 14px/1.6 Manrope;
+        overflow-x: hidden;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+        object-fit: cover;
+      }
+      .wrap {
+        width: min(1160px, calc(100% - 44px));
+        margin: auto;
+      }
+      .brand {
+        color: var(--cr);
+        font: 700 27px 'Cormorant Garamond';
+        display: flex;
+        align-items: center;
+        gap: 9px;
+      }
+      .mark {
+        display: none;
+      }
+      .logo-img {
+        height: 60px;
+        width: auto;
+        max-width: 160px;
+        filter: grayscale(1) brightness(0) invert(1);
+      }
+      header {
+        position: fixed;
+        z-index: 10;
+        inset: 0 0 auto;
+        padding: 18px 0;
+      }
+      .scrolled {
+        background: #241522f5;
+        padding: 11px 0;
+      }
+      .navwrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .nav {
+        display: flex;
+        gap: 25px;
+        color: var(--cr);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 800;
+      }
+      .nav a {
+        padding: 10px 0;
+      }
+      .nav a:hover,
+      .nav .active {
+        color: var(--g);
+        border-bottom: 2px solid var(--t);
+      }
+      .login {
+        background: var(--t);
+        padding: 11px 15px !important;
+        border: 0;
+      }
+      .menu {
+        display: none;
+        background: none;
+        border: 1px solid var(--g);
+        color: var(--cr);
+        font-size: 20px;
+        width: 42px;
+        height: 42px;
+      }
+      .drawer {
+        position: fixed;
+        z-index: 25;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 300px;
+        background: var(--a);
+        padding: 82px 28px;
+        transform: translateX(105%);
+        transition: 0.4s;
+      }
+      .drawer.open {
+        transform: none;
+      }
+      .drawer-close {
+        position: absolute;
+        top: 22px;
+        right: 22px;
+        border: 1px solid var(--g);
+        background: transparent;
+        color: var(--cr);
+        width: 40px;
+        height: 40px;
+        font-size: 26px;
+        line-height: 1;
+      }
+      .drawer a {
+        display: block;
+        color: var(--cr);
+        padding: 15px 0;
+        border-bottom: 1px solid #d7b77a3c;
+      }
+      .drawer a.drawer-login {
+        margin-top: 20px;
+        padding: 15px 18px;
+        text-align: center;
+        border: 1px solid var(--t);
+        background: var(--t);
+        color: var(--cr);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        transition: 0.3s;
+      }
+      .drawer a.drawer-login:hover {
+        background: var(--c);
+        border-color: var(--c);
+        color: var(--cr);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 22px rgba(198, 93, 74, 0.32);
+      }
+      .scrim {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        background: #181416aa;
+        opacity: 0;
+        pointer-events: none;
+      }
+      .scrim.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .hero {
+        padding: 155px 0 85px;
+        background:
+          linear-gradient(90deg, #241522ef, #54243b88),
+          url('https://images.pexels.com/photos/8124232/pexels-photo-8124232.jpeg?auto=compress&cs=tinysrgb&h=1300&w=2000')
+            center/cover;
+        color: var(--cr);
+      }
+      .eyebrow {
+        color: var(--g);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+      .eyebrow:before {
+        content: '— ';
+        color: var(--t);
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: 'Cormorant Garamond';
+        line-height: 0.98;
+        margin: 0;
+      }
+      h1 {
+        font-size: clamp(4rem, 8vw, 7rem);
+        max-width: 800px;
+        margin: 20px 0;
+      }
+      h2 {
+        font-size: clamp(2.6rem, 5vw, 5rem);
+        color: var(--w);
+      }
+      h3 {
+        font-size: 2rem;
+      }
+      .hero p {
+        color: var(--s);
+        max-width: 480px;
+      }
+      .section {
+        padding: 40px 0;
+      }
+      .dark {
+        background: var(--m);
+        color: var(--cr);
+      }
+      .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 30px;
+        margin-bottom: 40px;
+      }
+      .head p {
+        max-width: 390px;
+        color: var(--tau);
+      }
+      .dark .head p {
+        color: var(--s);
+      }
+      .story {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .story img {
+        height: 100%;
+        min-height: 500px;
+        width: 100%;
+      }
+      .story-copy {
+        padding: 65px;
+        background: var(--s);
+      }
+      .story-copy h2 {
+        margin: 18px 0;
+      }
+      .story-copy p {
+        color: var(--tau);
+        max-width: 450px;
+        margin-bottom: 15px;
+      }
+      .split {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+      .panel {
+        padding: 34px;
+        background: var(--w);
+        border-left: 3px solid var(--t);
+      }
+      .panel h3 {
+        color: var(--cr);
+        margin: 15px 0;
+      }
+      .panel p {
+        color: var(--s);
+        font-size: 13px;
+      }
+      .values {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+      .value {
+        padding: 26px;
+        background: var(--s);
+        border-bottom: 3px solid var(--t);
+        transition: 0.3s;
+      }
+      .value:hover {
+        transform: translateY(-7px);
+        background: var(--w);
+        color: var(--cr);
+      }
+      .value b {
+        color: var(--t);
+        font-size: 24px;
+      }
+      .value h3 {
+        font-size: 26px;
+        margin: 16px 0 8px;
+        color: var(--w);
+      }
+      .value:hover h3 {
+        color: var(--cr);
+      }
+      .value p {
+        font-size: 12px;
+        color: var(--tau);
+      }
+      .value:hover p {
+        color: var(--s);
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        background: #54243b22;
+      }
+      .stats div {
+        padding: 28px;
+        background: var(--cr);
+      }
+      .stats strong {
+        display: block;
+        color: var(--w);
+        font: 600 45px 'Cormorant Garamond';
+      }
+      .stats span {
+        font-size: 12px;
+        color: var(--tau);
+      }
+      .timeline {
+        border-left: 1px solid var(--g);
+        padding-left: 35px;
+        display: grid;
+        gap: 28px;
+      }
+      .milestone {
+        position: relative;
+        background: var(--w);
+        padding: 27px;
+        color: var(--cr);
+      }
+      .milestone:before {
+        content: '';
+        position: absolute;
+        width: 13px;
+        height: 13px;
+        background: var(--t);
+        border: 3px solid var(--s);
+        left: -42px;
+        top: 28px;
+      }
+      .milestone strong {
+        color: var(--g);
+        font-size: 12px;
+        letter-spacing: 0.15em;
+      }
+      .milestone h3 {
+        margin: 8px 0;
+      }
+      .milestone p {
+        color: var(--s);
+        font-size: 12px;
+      }
+      .team {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .person {
+        background: var(--s);
+        overflow: hidden;
+      }
+      .person img {
+        height: 300px;
+        width: 100%;
+        transition: 0.5s;
+      }
+      .person:hover img {
+        transform: scale(1.05);
+      }
+      .person div {
+        padding: 20px;
+      }
+      .person h3 {
+        color: var(--w);
+        font-size: 28px;
+      }
+      .person p {
+        color: var(--tau);
+        font-size: 12px;
+      }
+      .cta {
+        padding: 110px 0;
+        background:
+          linear-gradient(90deg, #241522ed, #54243b88),
+          url('https://images.pexels.com/photos/9090747/pexels-photo-9090747.jpeg?auto=compress&cs=tinysrgb&h=1200&w=2000')
+            center/cover;
+        color: var(--cr);
+      }
+      .cta h2 {
+        color: var(--cr);
+        margin: 18px 0;
+      }
+      .cta p {
+        color: var(--s);
+        max-width: 430px;
+      }
+      .btn {
+        display: inline-flex;
+        margin-top: 23px;
+        background: var(--t);
+        color: var(--cr);
+        padding: 14px 20px;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+      .btn:hover {
+        background: var(--c);
+        transform: translateY(-3px);
+      }
+      .site-footer {
+        background: var(--m);
+        color: var(--cr);
+        padding: 72px 0 24px;
+      }
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.4fr repeat(3, 1fr);
+        gap: 38px;
+        padding-bottom: 52px;
+      }
+      .footer-brand p {
+        max-width: 240px;
+        font-size: 12px;
+        color: var(--tau);
+        margin: 20px 0;
+      }
+      .socials {
+        display: flex;
+        gap: 10px;
+      }
+      .socials a {
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--bd);
+        font-size: 13px;
+        color: var(--g);
+        transition: 0.3s;
+      }
+      .socials a:hover {
+        background: var(--t);
+        color: var(--cr);
+        transform: translateY(-3px);
+      }
+      .site-footer h4 {
+        font-family: Manrope;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--g);
+        margin: 4px 0 20px;
+      }
+      .footer-links {
+        display: grid;
+        gap: 12px;
+      }
+      .footer-links a {
+        color: var(--tau);
+        font-size: 12px;
+        transition: 0.3s;
+      }
+      .footer-links a:hover {
+        color: var(--c);
+        transform: translateX(6px);
+      }
+      .footer-contact {
+        display: grid;
+        gap: 11px;
+        color: var(--tau);
+        font-size: 12px;
+      }
+      .footer-bottom {
+        border-top: 1px solid var(--bd);
+        padding-top: 20px;
+        color: var(--tau);
+        font-size: 11px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition: 0.7s;
+      }
+      .visible {
+        opacity: 1;
+        transform: none;
+      }
+      @media (max-width: 850px) {
+        .nav {
+          display: none;
+        }
+        .menu {
+          display: block;
+        }
+        .values {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stats {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .team {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .footer-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 600px) {
+        .wrap {
+          width: calc(100% - 32px);
+        }
+        .section {
+          padding: 72px 0;
+        }
+        .head {
+          display: block;
+        }
+        .head p {
+          margin-top: 14px;
+        }
+        .story,
+        .split {
+          grid-template-columns: 1fr;
+        }
+        .story img {
+          min-height: 300px;
+        }
+        .story-copy {
+          padding: 36px 23px;
+        }
+        .values,
+        .team {
+          grid-template-columns: 1fr;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 30px 20px;
+        }
+        .footer-brand {
+          grid-column: 1/-1;
+        }
+        .footer-bottom {
+          display: block;
+        }
+        .footer-bottom span {
+          display: block;
+          margin-top: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header id="header">
+      <div class="wrap navwrap">
+        <a class="brand" href="index.html"><img src="assets/stackly-logo-orange.webp" alt="NGO Charity" class="logo-img" /></a>
+        <nav class="nav">
+          <a href="index.html">Home</a>
+          <a href="causes.html">Our Causes</a>
+          <a href="campaigns.html">Campaigns</a>
+          <a class="active" href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+          <a class="login" href="login.html">Login</a>
+        </nav>
+        <button class="menu" id="menu">☰</button>
+      </div>
+    </header>
+    <div class="scrim" id="scrim"></div>
+    <aside class="drawer" id="drawer">
+      <button class="drawer-close" id="drawerClose" aria-label="Close menu">×</button>
+      <a href="index.html">Home</a>
+      <a href="causes.html">Our Causes</a>
+      <a href="campaigns.html">Campaigns</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+      <a href="login.html" class="drawer-login">Login</a>
+    </aside>
+    <main>
+      <section class="hero">
+        <div class="wrap reveal">
+          <div class="eyebrow">A people-powered organization</div>
+          <h1>
+            We believe change is a
+            <i>practice.</i>
+          </h1>
+          <p>
+            For 18 years, NGO Charity has worked with communities to turn resources into agency, and good intentions
+            into useful action.
+          </p>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap">
+          <div class="story reveal">
+            <img
+              src="https://images.pexels.com/photos/8042458/pexels-photo-8042458.jpeg?auto=compress&cs=tinysrgb&h=1200&w=1200"
+              alt="Woman connecting with children"
+            />
+            <div class="story-copy">
+              <div class="eyebrow" style="color: var(--w)">Our story</div>
+              <h2>
+                Start close.
+                <br />
+                <i>Stay curious.</i>
+              </h2>
+              <p>
+                We began in 2008 with one after-school circle and a conviction that the people closest to a challenge
+                should help design the answer.
+              </p>
+              <p>
+                Today, our teams work across education, health, nourishment and livelihoods — not as heroes, but as
+                committed partners.
+              </p>
+              <a class="btn" href="404.html">Meet the team ↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section dark">
+        <div class="wrap">
+          <div class="head reveal">
+            <div>
+              <div class="eyebrow">Our compass</div>
+              <h2 style="color: var(--cr); margin-top: 16px">
+                Mission & vision
+                <br />
+                <i>with both feet on earth.</i>
+              </h2>
+            </div>
+            <p>We imagine a future where every person has the resources, confidence and freedom to shape their own.</p>
+          </div>
+          <div class="split">
+            <article class="panel reveal">
+              <div class="eyebrow">Mission</div>
+              <h3>Make opportunity feel possible.</h3>
+              <p>
+                We resource local leadership and build practical systems that make everyday life safer, healthier and
+                more hopeful.
+              </p>
+            </article>
+            <article class="panel reveal">
+              <div class="eyebrow">Vision</div>
+              <h3>A fairer future, built together.</h3>
+              <p>Communities lead. Institutions listen. Every child, family and neighborhood gets room to thrive.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap">
+          <div class="head reveal">
+            <div>
+              <div class="eyebrow" style="color: var(--w)">What we carry</div>
+              <h2 style="margin-top: 16px">
+                Values, not
+                <br />
+                <i>wallpaper.</i>
+              </h2>
+            </div>
+          </div>
+          <div class="values">
+            <div class="value reveal">
+              <b>01</b>
+              <h3>Listen first</h3>
+              <p>Lived experience is expertise.</p>
+            </div>
+            <div class="value reveal">
+              <b>02</b>
+              <h3>Stay honest</h3>
+              <p>We share what works and what doesn't.</p>
+            </div>
+            <div class="value reveal">
+              <b>03</b>
+              <h3>Build agency</h3>
+              <p>Support should strengthen choice.</p>
+            </div>
+            <div class="value reveal">
+              <b>04</b>
+              <h3>Keep showing up</h3>
+              <p>Trust is built over time.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section dark">
+        <div class="wrap">
+          <div class="head reveal">
+            <div>
+              <div class="eyebrow">18 years of staying close</div>
+              <h2 style="color: var(--cr); margin-top: 16px">
+                The milestones
+                <br />
+                <i>that shaped us.</i>
+              </h2>
+            </div>
+          </div>
+          <div class="timeline">
+            <article class="milestone reveal">
+              <strong>2008 · PUNE</strong>
+              <h3>One circle becomes a promise.</h3>
+              <p>Our first learning space opens with 24 children and a neighborhood team.</p>
+            </article>
+            <article class="milestone reveal">
+              <strong>2014 · MAHARASHTRA</strong>
+              <h3>Care finds the last mile.</h3>
+              <p>Mobile health work expands to rural communities across three districts.</p>
+            </article>
+            <article class="milestone reveal">
+              <strong>2020 · EVERYWHERE</strong>
+              <h3>Community networks hold.</h3>
+              <p>Local partners distribute food, care and information through the hardest year.</p>
+            </article>
+            <article class="milestone reveal">
+              <strong>2026 · FORWARD</strong>
+              <h3>Still listening. Still building.</h3>
+              <p>1.2 million lives impacted, with much more work ahead.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap">
+          <div class="head reveal">
+            <div>
+              <div class="eyebrow" style="color: var(--w)">The people behind the work</div>
+              <h2 style="margin-top: 16px">
+                A team that
+                <br />
+                <i>stays human.</i>
+              </h2>
+            </div>
+          </div>
+          <div class="team">
+            <article class="person reveal">
+              <img
+                src="https://images.pexels.com/photos/7640425/pexels-photo-7640425.jpeg?auto=compress&cs=tinysrgb&h=800&w=600"
+                alt="Portrait of NGO director"
+              />
+              <div>
+                <h3>Ananya Rao</h3>
+                <p>Co-founder & director · “Make the useful thing easier to reach.”</p>
+              </div>
+            </article>
+            <article class="person reveal">
+              <img
+                src="https://images.pexels.com/photos/5945343/pexels-photo-5945343.jpeg?auto=compress&cs=tinysrgb&h=800&w=600"
+                alt="Portrait of program lead"
+              />
+              <div>
+                <h3>Arjun Menon</h3>
+                <p>Programs lead · Community partnerships and learning.</p>
+              </div>
+            </article>
+            <article class="person reveal">
+              <img
+                src="https://images.pexels.com/photos/7005634/pexels-photo-7005634.jpeg?auto=compress&cs=tinysrgb&h=800&w=600"
+                alt="Portrait of partnerships lead"
+              />
+              <div>
+                <h3>Leela Shah</h3>
+                <p>Partnerships lead · Turning generosity into momentum.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="cta">
+        <div class="wrap reveal">
+          <div class="eyebrow">Come closer</div>
+          <h2>
+            Good work needs
+            <br />
+            <i>good company.</i>
+          </h2>
+          <p>Whether you want to volunteer, partner or simply ask a question, there is a place for you here.</p>
+          <a class="btn" href="404.html">Start a conversation ↗</a>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a class="brand" href="index.html">
+              <img src="assets/stackly-logo-orange.webp" alt="NGO Charity" class="logo-img" />
+            </a>
+            <p>People-powered progress for a kinder, fairer tomorrow.</p>
+            <div class="socials">
+              <a href="404.html" aria-label="Facebook">f</a>
+              <a href="404.html" aria-label="Instagram">◎</a>
+              <a href="404.html" aria-label="X">𝕏</a>
+              <a href="404.html" aria-label="LinkedIn">in</a>
+            </div>
+          </div>
+          <div>
+            <h4>Quick links</h4>
+            <div class="footer-links">
+              <a href="index.html">Home</a>
+              <a href="causes.html">Our Causes</a>
+              <a href="campaigns.html">Campaigns</a>
+              <a href="about.html">About Us</a>
+              <a href="contact.html">Contact</a>
+            </div>
+          </div>
+          <div>
+            <h4>Get involved</h4>
+            <div class="footer-links">
+              <a href="404.html">Donate</a>
+              <a href="404.html">Volunteer</a>
+              <a href="404.html">Fundraise</a>
+              <a href="404.html">Partner with us</a>
+              <a href="404.html">Our impact</a>
+            </div>
+          </div>
+          <div>
+            <h4>Contact</h4>
+            <div class="footer-contact">
+              <span>
+                14 Senapati Bapat Road
+                Pune, Maharashtra 411016
+              </span>
+              <span>+91 20 4112 0380</span>
+              <span>stackly@ngocharity.org</span>
+              <span>Mon–Fri · 9am–6pm IST</span>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Stackly NGO Charity. Registered for good.</span>
+          <span>
+            <a href="404.html">Privacy Policy</a>
+            <a href="404.html">Terms of Use</a>
+          </span>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const h = document.querySelector('#header'),
+        m = document.querySelector('#menu'),
+        d = document.querySelector('#drawer'),
+        s = document.querySelector('#scrim');
+      addEventListener('scroll', () => h.classList.toggle('scrolled', scrollY > 30));
+      m.onclick = () => {
+        d.classList.toggle('open');
+        s.classList.toggle('open');
+        m.textContent = d.classList.contains('open') ? '×' : '☰';
+      };
+      s.onclick = () => {
+        d.classList.remove('open');
+        s.classList.remove('open');
+        m.textContent = '☰';
+      };
+      document.querySelector('#drawerClose').onclick = () => {
+        d.classList.remove('open');
+        s.classList.remove('open');
+        m.textContent = '☰';
+      };
+      document.addEventListener('keydown', e => e.key === 'Escape' && s.click());
+      const o = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && e.target.classList.add('visible')), {
+        threshold: 0.1
+      });
+      document.querySelectorAll('.reveal').forEach(e => o.observe(e));
+    </script>
+  </body>
+</html>

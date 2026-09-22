@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Login — NGO Charity</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;800&display=swap');
+      :root {
+        --m: #241522;
+        --a: #321b31;
+        --w: #54243b;
+        --t: #c65d4a;
+        --c: #d97862;
+        --g: #d7b77a;
+        --s: #e7d7c5;
+        --cr: #f6efe7;
+        --tau: #8f817a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--cr);
+        font: 14px/1.6 Manrope;
+        overflow-x: hidden;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        min-height: 100vh;
+      }
+      .left {
+        background:
+          linear-gradient(180deg, #241522ee, #54243bcc),
+          url('https://images.pexels.com/photos/8042458/pexels-photo-8042458.jpeg?auto=compress&cs=tinysrgb&h=1400&w=1200')
+            center/cover;
+        color: var(--cr);
+        padding: 55px 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--cr);
+        font: 700 28px 'Cormorant Garamond';
+      }
+      .mark {
+        width: 30px;
+        height: 30px;
+        border: 1px solid var(--g);
+        display: grid;
+        place-items: center;
+        color: var(--g);
+        transform: rotate(45deg);
+      }
+      .mark span {
+        transform: rotate(-45deg);
+      }
+      .logo-img {
+        display: block;
+        width: auto;
+        height: 60px;
+        max-width: 190px;
+        filter: grayscale(1) brightness(0) invert(1);
+      }
+      .left h1 {
+        font-family: 'Cormorant Garamond';
+        font-size: clamp(2.6rem, 4vw, 4.4rem);
+        line-height: 1;
+        margin: 20px 0;
+        max-width: 420px;
+      }
+      .left h1 em {
+        color: var(--c);
+        font-style: normal;
+      }
+      .left p {
+        color: var(--s);
+        max-width: 360px;
+      }
+      .left-stat {
+        display: flex;
+        gap: 30px;
+        border-top: 1px solid var(--g);
+        padding-top: 25px;
+      }
+      .left-stat strong {
+        display: block;
+        font: 600 36px 'Cormorant Garamond';
+        color: var(--g);
+      }
+      .left-stat span {
+        font-size: 11px;
+        color: var(--s);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+      .right {
+        padding: 55px 50px;
+        background: var(--s);
+        overflow-y: auto;
+        max-height: 100vh;
+      }
+      .tabs {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 38px;
+        border-bottom: 1px solid #54243b22;
+      }
+      .tab {
+        padding: 12px 0;
+        background: none;
+        border: 0;
+        font-size: 13px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 800;
+        color: var(--tau);
+        position: relative;
+        cursor: pointer;
+      }
+      .tab.active {
+        color: var(--w);
+      }
+      .tab.active:after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--t);
+      }
+      .form-head h2 {
+        font-family: 'Cormorant Garamond';
+        font-size: 2.6rem;
+        color: var(--w);
+        margin: 0 0 8px;
+      }
+      .form-head p {
+        color: var(--tau);
+        font-size: 13px;
+        margin: 0 0 28px;
+      }
+      .role-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--w);
+        font-weight: 800;
+        margin-bottom: 12px;
+      }
+      .roles {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 22px;
+      }
+      .role {
+        padding: 18px;
+        background: var(--w);
+        color: var(--cr);
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: 0.3s;
+        text-align: left;
+      }
+      .role:hover {
+        transform: translateY(-3px);
+        border-color: var(--g);
+      }
+      .role.active {
+        background: var(--t);
+        border-color: var(--g);
+      }
+      .role b {
+        display: block;
+        font-size: 20px;
+        color: var(--g);
+      }
+      .role.active b {
+        color: var(--cr);
+      }
+      .role span {
+        font-size: 12px;
+        color: var(--s);
+      }
+      .field {
+        margin-bottom: 16px;
+      }
+      .field label {
+        display: block;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--w);
+        font-weight: 800;
+        margin-bottom: 6px;
+      }
+      .field input {
+        width: 100%;
+        padding: 12px 14px;
+        background: var(--cr);
+        border: 1px solid #54243b22;
+        font: 14px Manrope;
+        transition: 0.3s;
+      }
+      .field input:focus {
+        outline: none;
+        border-color: var(--t);
+        background: #fff;
+      }
+      .pwd {
+        position: relative;
+      }
+      .pwd input {
+        padding-right: 42px;
+      }
+      .pwd button {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: 0;
+        color: var(--tau);
+        font-size: 16px;
+        cursor: pointer;
+        padding: 4px 8px;
+      }
+      .error {
+        color: var(--t);
+        font-size: 11px;
+        display: none;
+        margin-top: 5px;
+        font-weight: 700;
+      }
+      .field.bad input {
+        border-color: var(--t);
+      }
+      .field.bad .error {
+        display: block;
+      }
+      .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 22px;
+        font-size: 12px;
+        color: var(--tau);
+      }
+      .row label {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        cursor: pointer;
+      }
+      .row a {
+        color: var(--t);
+        font-weight: 700;
+      }
+      .btn {
+        width: 100%;
+        padding: 15px;
+        background: var(--t);
+        color: var(--cr);
+        border: 1px solid var(--t);
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 800;
+        transition: 0.3s;
+        cursor: pointer;
+      }
+      .btn:hover {
+        background: var(--c);
+        transform: translateY(-2px);
+      }
+      .home-btn {
+        display: block;
+        text-align: center;
+        margin-top: 14px;
+        padding: 13px;
+        border: 1px solid var(--w);
+        color: var(--w);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-weight: 800;
+        transition: 0.3s;
+      }
+      .home-btn:hover {
+        background: var(--w);
+        color: var(--cr);
+      }
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 26px 0;
+        color: var(--tau);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+      .divider:before,
+      .divider:after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #54243b22;
+      }
+      .socials {
+        display: flex;
+        gap: 10px;
+      }
+      .social-btn {
+        flex: 1;
+        padding: 12px;
+        background: var(--cr);
+        border: 1px solid #54243b22;
+        font-weight: 800;
+        color: var(--w);
+        font-size: 12px;
+        transition: 0.3s;
+        cursor: pointer;
+      }
+      .social-btn:hover {
+        border-color: var(--t);
+        color: var(--t);
+        transform: translateY(-2px);
+      }
+      .terms {
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+        margin-bottom: 22px;
+        font-size: 12px;
+        color: var(--tau);
+      }
+      .terms input {
+        margin-top: 3px;
+      }
+      .hidden {
+        display: none;
+      }
+      .toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: var(--w);
+        color: var(--cr);
+        padding: 16px 22px;
+        border-left: 3px solid var(--g);
+        box-shadow: 0 14px 35px #24152255;
+        transform: translateY(120px);
+        opacity: 0;
+        transition: 0.4s;
+        z-index: 50;
+      }
+      .toast.show {
+        transform: none;
+        opacity: 1;
+      }
+      @media (max-width: 860px) {
+        .split {
+          grid-template-columns: 1fr;
+        }
+        .left {
+          position: static;
+          height: auto;
+          min-height: 340px;
+          padding: 40px 30px;
+        }
+        .right {
+          max-height: none;
+          padding: 40px 30px;
+        }
+      }
+      @media (max-width: 480px) {
+        .roles {
+          grid-template-columns: 1fr;
+        }
+        .socials {
+          flex-direction: column;
+        }
+        .toast {
+          right: 16px;
+          left: 16px;
+          bottom: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="split">
+      <aside class="left">
+        <a class="brand" href="index.html">
+          <img src="assets/stackly-logo-orange.webp" alt="NGO Charity" class="logo-img" />
+        </a>
+        <div>
+          <h1>
+            Every act of care
+            <em>adds up.</em>
+          </h1>
+          <p>Join a community turning steady, human-sized support into lasting change.</p>
+        </div>
+        <div class="left-stat">
+          <div>
+            <strong>1.2M</strong>
+            <span>lives impacted</span>
+          </div>
+          <div>
+            <strong>14.8k</strong>
+            <span>volunteers</span>
+          </div>
+          <div>
+            <strong>94%</strong>
+            <span>to the field</span>
+          </div>
+        </div>
+      </aside>
+      <main class="right">
+        <div class="tabs">
+          <button class="tab active" id="tabLogin">Login</button>
+          <button class="tab" id="tabSignup">Sign up</button>
+        </div>
+        <form id="loginForm" novalidate>
+          <div class="form-head">
+            <h2>Welcome back.</h2>
+            <p>Sign in to your dashboard to continue your work.</p>
+          </div>
+          <div class="role-label">I am signing in as</div>
+          <div class="roles">
+            <button type="button" class="role active" data-role="volunteer">
+              <b>◌</b>
+              Volunteer
+            </button>
+            <button type="button" class="role" data-role="admin">
+              <b>✦</b>
+              Admin
+            </button>
+          </div>
+          <div class="field" id="l-email">
+            <label for="lemail">Email</label>
+            <input id="lemail" type="email" placeholder="you@example.com" autocomplete="email" />
+            <div class="error">Use an email ending in .com, .in or .org.</div>
+          </div>
+          <div class="field" id="l-pwd">
+            <label for="lpwd">Password</label>
+            <div class="pwd">
+              <input id="lpwd" type="password" placeholder="At least 6 characters" autocomplete="current-password" />
+              <button type="button" id="lpwdToggle" aria-label="Show password">👁</button>
+            </div>
+            <div class="error">Password must be at least 6 characters.</div>
+          </div>
+          <div class="row">
+            <label>
+              <input type="checkbox" id="remember" />
+              Remember me
+            </label>
+            <a href="404.html" >Forgot password?</a>
+          </div>
+          <button class="btn" type="submit">Sign in ↗</button>
+          <a class="home-btn" href="index.html">Go home</a>
+          <div class="divider">or continue with</div>
+          <div class="socials">
+            <button onclick="window.location.href='404.html'" type="button" class="social-btn">Google</button>
+            <button onclick="window.location.href='404.html'" type="button" class="social-btn">Facebook</button>
+            <button onclick="window.location.href='404.html'" type="button" class="social-btn">LinkedIn</button>
+          </div>
+        </form>
+        <form id="signupForm" class="hidden" novalidate>
+          <div class="form-head">
+            <h2>Create your account.</h2>
+            <p>Start contributing to causes that move you.</p>
+          </div>
+          <div class="role-label">I am joining as</div>
+          <div class="roles">
+            <button type="button" class="role active" data-role="volunteer">
+              <b>◌</b>
+              Volunteer
+            </button>
+            <button type="button" class="role" data-role="admin">
+              <b>✦</b>
+              Admin
+            </button>
+          </div>
+          <div class="field" id="s-name">
+            <label for="sname">Full name</label>
+            <input id="sname" placeholder="Your full name" autocomplete="name" />
+            <div class="error">Please use letters and spaces only.</div>
+          </div>
+          <div class="field" id="s-email">
+            <label for="semail">Email</label>
+            <input id="semail" type="email" placeholder="you@example.com" autocomplete="email" />
+            <div class="error">Use an email ending in .com, .in or .org.</div>
+          </div>
+          <div class="field" id="s-pwd">
+            <label for="spwd">Password</label>
+            <div class="pwd">
+              <input id="spwd" type="password" placeholder="At least 6 characters" autocomplete="new-password" />
+              <button type="button" id="spwdToggle" aria-label="Show password">👁</button>
+            </div>
+            <div class="error">Password must be at least 6 characters.</div>
+          </div>
+          <div class="field" id="s-cpwd">
+            <label for="scpwd">Confirm password</label>
+            <div class="pwd">
+              <input id="scpwd" type="password" placeholder="Re-enter password" autocomplete="new-password" />
+              <button type="button" id="scpwdToggle" aria-label="Show password">👁</button>
+            </div>
+            <div class="error">Passwords must match.</div>
+          </div>
+          <label class="terms">
+            <input type="checkbox" id="terms" />
+            I agree to NGO Charity's terms and community guidelines.
+          </label>
+          <button class="btn" type="submit">Create account ↗</button>
+          <a class="home-btn" href="index.html">Go home</a>
+          <div class="divider">or sign up with</div>
+          <div class="socials">
+            <button onclick="window.location.href='404.html'" type="button" class="social-btn">Google</button>
+            <button onclick="window.location.href='404.html'" type="button" class="social-btn">Facebook</button>
+            <button onclick="window.location.href='404.html'" type="button" class="social-btn">LinkedIn</button>
+          </div>
+        </form>
+      </main>
+    </div>
+    <div class="toast" id="toast">Account created — please sign in.</div>
+    <script>
+      const tabLogin = document.querySelector('#tabLogin'),
+        tabSignup = document.querySelector('#tabSignup'),
+        loginForm = document.querySelector('#loginForm'),
+        signupForm = document.querySelector('#signupForm');
+      function showLogin() {
+        tabLogin.classList.add('active');
+        tabSignup.classList.remove('active');
+        loginForm.classList.remove('hidden');
+        signupForm.classList.add('hidden');
+      }
+      function showSignup() {
+        tabSignup.classList.add('active');
+        tabLogin.classList.remove('active');
+        signupForm.classList.remove('hidden');
+        loginForm.classList.add('hidden');
+      }
+      tabLogin.onclick = showLogin;
+      tabSignup.onclick = showSignup;
+      function bindRoles(form) {
+        let role = 'volunteer';
+        form.querySelectorAll('.role').forEach(
+          r =>
+            (r.onclick = () => {
+              form.querySelectorAll('.role').forEach(x => x.classList.remove('active'));
+              r.classList.add('active');
+              role = r.dataset.role;
+            })
+        );
+        return () => role;
+      }
+      const getLoginRole = bindRoles(loginForm);
+      const getSignupRole = bindRoles(signupForm);
+      function toggle(id) {
+        const btn = document.querySelector(id),
+          input = btn.previousElementSibling;
+        btn.onclick = () => {
+          const show = input.type === 'password';
+          input.type = show ? 'text' : 'password';
+          btn.textContent = show ? '🙈' : '👁';
+        };
+      }
+      toggle('#lpwdToggle');
+      toggle('#spwdToggle');
+      toggle('#scpwdToggle');
+      function bad(id, on) {
+        document.querySelector(id).classList.toggle('bad', on);
+      }
+      function val(id) {
+        return document.querySelector(id).value.trim();
+      }
+      const emailRe = /^[^\s@]+@[^\s@]+\.(com|in|org)$/i;
+      loginForm.addEventListener('submit', e => {
+        e.preventDefault();
+        let ok = true;
+        if (!emailRe.test(val('#lemail'))) {
+          bad('#l-email', true);
+          ok = false;
+        } else bad('#l-email', false);
+        if (val('#lpwd').length < 6) {
+          bad('#l-pwd', true);
+          ok = false;
+        } else bad('#l-pwd', false);
+        if (!ok) return;
+        const email = val('#lemail');
+        const role = getLoginRole();
+        const name = email
+          .split('@')[0]
+          .replace(/[._-]+/g, ' ')
+          .replace(/\b\w/g, c => c.toUpperCase());
+        localStorage.setItem('userRole', role);
+        localStorage.setItem('userEmail', email);
+        localStorage.setItem('userName', name);
+        localStorage.setItem('isLoggedIn', 'true');
+        window.location.href = role === 'admin' ? 'admin-dashboard.html' : 'volunteer-dashboard.html';
+      });
+      const toast = document.querySelector('#toast');
+      signupForm.addEventListener('submit', e => {
+        e.preventDefault();
+        let ok = true;
+        if (!/^[A-Za-z ]{2,}$/.test(val('#sname'))) {
+          bad('#s-name', true);
+          ok = false;
+        } else bad('#s-name', false);
+        if (!emailRe.test(val('#semail'))) {
+          bad('#s-email', true);
+          ok = false;
+        } else bad('#s-email', false);
+        if (val('#spwd').length < 6) {
+          bad('#s-pwd', true);
+          ok = false;
+        } else bad('#s-pwd', false);
+        if (val('#scpwd') !== val('#spwd') || !val('#scpwd')) {
+          bad('#s-cpwd', true);
+          ok = false;
+        } else bad('#s-cpwd', false);
+        if (!document.querySelector('#terms').checked) {
+          toast.textContent = 'Please accept the terms to continue.';
+          toast.classList.add('show');
+          setTimeout(() => toast.classList.remove('show'), 3000);
+          return;
+        }
+        if (!ok) return;
+        toast.textContent = 'Account created — please sign in.';
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+          showLogin();
+          loginForm.querySelector('#lemail').value = val('#semail');
+        }, 1500);
+      });
+    </script>
+  </body>
+</html>

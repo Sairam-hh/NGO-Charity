@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>404 — NGO Charity</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;600;800&display=swap');
+      :root {
+        --m: #241522;
+        --a: #321b31;
+        --w: #54243b;
+        --t: #c65d4a;
+        --c: #d97862;
+        --g: #d7b77a;
+        --s: #e7d7c5;
+        --cr: #f6efe7;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--m);
+        color: var(--cr);
+        font: 14px/1.6 Manrope;
+        overflow-x: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 40px 20px;
+      }
+      body:before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background:
+          linear-gradient(135deg, #241522f0, #54243bcc),
+          url('https://images.pexels.com/photos/6757958/pexels-photo-6757958.jpeg?auto=compress&cs=tinysrgb&h=1200&w=2000')
+            center/cover;
+        animation: slowZoom 20s ease-in-out infinite alternate;
+        z-index: -1;
+      }
+      @keyframes slowZoom {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.08);
+        }
+      }
+      .brand {
+        position: fixed;
+        top: 30px;
+        left: 30px;
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: var(--cr);
+        font: 700 24px 'Cormorant Garamond';
+      }
+      .mark {
+        width: 28px;
+        height: 28px;
+        border: 1px solid var(--g);
+        display: grid;
+        place-items: center;
+        color: var(--g);
+        transform: rotate(45deg);
+      }
+      .mark span {
+        transform: rotate(-45deg);
+      }
+      .logo-img {
+        display: block;
+        width: auto;
+        height: 60px;
+        max-width: 190px;
+        filter: grayscale(1) brightness(0) invert(1);
+      }
+      .content {
+        max-width: 620px;
+        position: relative;
+        z-index: 1;
+      }
+      .line {
+        height: 1px;
+        width: 60px;
+        background: var(--g);
+        margin: 0 auto 30px;
+        animation: expand 2s ease infinite alternate;
+      }
+      @keyframes expand {
+        from {
+          width: 60px;
+        }
+        to {
+          width: 120px;
+        }
+      }
+      .eyebrow {
+        color: var(--g);
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-weight: 800;
+        margin-bottom: 20px;
+      }
+      h1 {
+        font: 700 clamp(8rem, 18vw, 16rem) 'Cormorant Garamond';
+        line-height: 0.85;
+        margin: 0;
+        background: linear-gradient(135deg, var(--t), var(--g));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: fadeUp 0.8s ease;
+      }
+      h2 {
+        font: 600 clamp(2rem, 4vw, 3.4rem) 'Cormorant Garamond';
+        margin: 24px 0 14px;
+        animation: fadeUp 0.8s ease 0.15s backwards;
+      }
+      p {
+        color: var(--s);
+        max-width: 420px;
+        margin: 0 auto 34px;
+        animation: fadeUp 0.8s ease 0.3s backwards;
+      }
+      .actions {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        animation: fadeUp 0.8s ease 0.45s backwards;
+      }
+      .actions a {
+        text-decoration: none;
+      }
+      .btn {
+        padding: 15px 24px;
+        background: var(--t);
+        color: var(--cr);
+        border: 1px solid var(--t);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 800;
+        transition: 0.3s;
+      }
+      .btn:hover {
+        background: var(--c);
+        transform: translateY(-3px);
+      }
+      .btn.alt {
+        background: transparent;
+        border-color: var(--g);
+        color: var(--cr);
+      }
+      .btn.alt:hover {
+        background: var(--g);
+        color: var(--m);
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @media (max-width: 480px) {
+        .brand {
+          top: 20px;
+          left: 20px;
+          font-size: 20px;
+        }
+        .actions {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="brand" href="index.html">
+      <img src="assets/stackly-logo-orange.webp" alt="NGO Charity" class="logo-img" />
+    </a>
+    <div class="content">
+      <div class="line"></div>
+      <div class="eyebrow">Lost along the way</div>
+      <h1>404</h1>
+      <h2>Looks like this page took a different path.</h2>
+      <p>
+        The page you are looking for may have moved, or perhaps it was never quite here. Let's find our way back
+        together.
+      </p>
+      <div class="actions">
+        <a class="btn" href="index.html">Go home ↗</a>
+        <a class="btn alt" href="javascript:history.back()">Go back</a>
+      </div>
+    </div>
+  </body>
+</html>

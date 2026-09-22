@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Admin Dashboard — NGO Charity</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+      :root {
+        --m: #241522;
+        --a: #321b31;
+        --w: #54243b;
+        --t: #c65d4a;
+        --c: #d97862;
+        --g: #d7b77a;
+        --s: #e7d7c5;
+        --cr: #f6efe7;
+        --tau: #8f817a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--s);
+        font: 14px/1.6 Manrope;
+        color: #181416;
+        overflow-x: hidden;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      .layout {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        min-height: 100vh;
+      }
+      .sidebar {
+        background: var(--m);
+        color: var(--cr);
+        padding: 28px 0;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: var(--cr);
+        font: 700 23px 'Cormorant Garamond';
+        padding: 0 24px 28px;
+        border-bottom: 1px solid #d7b77a22;
+      }
+      .mark {
+        width: 26px;
+        height: 26px;
+        border: 1px solid var(--g);
+        display: grid;
+        place-items: center;
+        color: var(--g);
+        transform: rotate(45deg);
+      }
+      .mark span {
+        transform: rotate(-45deg);
+      }
+      .logo-img {
+        display: block;
+        width: auto;
+        height: 60px;
+        max-width: 170px;
+        filter: grayscale(1) brightness(0) invert(1);
+      }
+      .sidebar-close {
+        display: none;
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        border: 1px solid var(--g);
+        background: transparent;
+        color: var(--cr);
+        width: 38px;
+        height: 38px;
+        font-size: 24px;
+        line-height: 1;
+      }
+      .nav {
+        padding: 18px 0;
+        flex: 1;
+      }
+      .nav button {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        gap: 12px;
+        padding: 13px 24px;
+        background: none;
+        border: 0;
+        color: var(--s);
+        font: 600 13px Manrope;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.25s;
+        border-left: 3px solid transparent;
+      }
+      .nav button:hover {
+        background: #54243b44;
+        color: var(--g);
+      }
+      .nav button.active {
+        background: var(--t);
+        color: var(--cr);
+        border-left-color: var(--g);
+      }
+      .nav button i {
+        width: 18px;
+        text-align: center;
+        font-style: normal;
+        color: var(--g);
+      }
+      .nav button.active i {
+        color: var(--cr);
+      }
+      .nav .sep {
+        height: 1px;
+        background: #d7b77a22;
+        margin: 14px 24px;
+      }
+      .main {
+        padding: 30px 38px;
+        overflow-x: hidden;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+      .topbar h1 {
+        font: 600 2rem 'Cormorant Garamond';
+        color: var(--w);
+        margin: 0;
+      }
+      .menu-btn {
+        display: none;
+        background: none;
+        border: 1px solid var(--w);
+        color: var(--w);
+        font-size: 20px;
+        width: 42px;
+        height: 42px;
+      }
+      .profile {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: var(--cr);
+        padding: 8px 14px;
+        border: 1px solid #54243b22;
+      }
+      .avatar {
+        width: 38px;
+        height: 38px;
+        background: var(--t);
+        color: var(--cr);
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        border-radius: 50%;
+      }
+      .profile b {
+        color: var(--w);
+        font-size: 13px;
+      }
+      .profile span {
+        display: block;
+        font-size: 11px;
+        color: var(--tau);
+      }
+      .profile small {
+        display: block;
+        font-size: 10px;
+        color: var(--tau);
+        max-width: 190px;
+        overflow-wrap: anywhere;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+        margin-bottom: 28px;
+      }
+      .card {
+        background: var(--cr);
+        padding: 24px;
+        border: 1px solid #54243b18;
+        transition: 0.3s;
+      }
+      .card:hover {
+        transform: translateY(-5px);
+        border-color: var(--t);
+      }
+      .card b {
+        color: var(--t);
+        font-size: 22px;
+      }
+      .card strong {
+        display: block;
+        font: 600 38px 'Cormorant Garamond';
+        color: var(--w);
+      }
+      .card span {
+        font-size: 12px;
+        color: var(--tau);
+      }
+      .panel {
+        display: none;
+        animation: fade 0.4s;
+      }
+      .panel.active {
+        display: block;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .section-card {
+        background: var(--cr);
+        padding: 26px;
+        border: 1px solid #54243b18;
+        margin-bottom: 22px;
+      }
+      .section-card h2 {
+        font: 600 1.7rem 'Cormorant Garamond';
+        color: var(--w);
+        margin: 0 0 18px;
+      }
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .campaign-card {
+        background: var(--s);
+        padding: 18px;
+        border: 1px solid #54243b18;
+        transition: 0.3s;
+      }
+      .campaign-card:hover {
+        border-color: var(--t);
+        transform: translateY(-3px);
+      }
+      .status {
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 800;
+        padding: 3px 8px;
+        display: inline-block;
+      }
+      .status.active {
+        background: var(--t);
+        color: var(--cr);
+      }
+      .status.review {
+        background: var(--g);
+        color: var(--m);
+      }
+      .status.done {
+        background: var(--w);
+        color: var(--cr);
+      }
+      .campaign-card h3 {
+        font: 600 1.4rem 'Cormorant Garamond';
+        color: var(--w);
+        margin: 10px 0 6px;
+      }
+      .campaign-card p {
+        font-size: 12px;
+        color: var(--tau);
+        margin: 0 0 12px;
+      }
+      .bar {
+        height: 7px;
+        background: var(--w);
+        margin: 10px 0;
+      }
+      .bar span {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, var(--t), var(--c));
+      }
+      .meta {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        color: var(--tau);
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .actions button {
+        padding: 7px 12px;
+        font-size: 11px;
+        font-weight: 700;
+        border: 1px solid var(--w);
+        background: none;
+        color: var(--w);
+        cursor: pointer;
+        transition: 0.25s;
+      }
+      .actions button:hover {
+        background: var(--w);
+        color: var(--cr);
+      }
+      .actions button.del:hover {
+        background: var(--t);
+        border-color: var(--t);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      th {
+        text-align: left;
+        padding: 12px;
+        background: var(--w);
+        color: var(--cr);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      td {
+        padding: 12px;
+        border-bottom: 1px solid #54243b18;
+      }
+      .tag {
+        font-size: 10px;
+        padding: 3px 8px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+      .tag.ok {
+        background: var(--t);
+        color: var(--cr);
+      }
+      .tag.pend {
+        background: var(--g);
+        color: var(--m);
+      }
+      .chart-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 22px;
+      }
+      .bars {
+        display: grid;
+        gap: 12px;
+        margin-top: 16px;
+      }
+      .bar-row {
+        display: grid;
+        grid-template-columns: 110px 1fr 50px;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+      }
+      .bar-row .track {
+        height: 22px;
+        background: var(--s);
+        position: relative;
+      }
+      .bar-row .track span {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, var(--t), var(--c));
+        transition: width 0.6s;
+      }
+      .bar-row b {
+        color: var(--w);
+        font-weight: 800;
+      }
+      .donut {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+      .donut-chart {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: conic-gradient(var(--t) 0 42%, var(--g) 42% 68%, var(--w) 68% 100%);
+        position: relative;
+      }
+      .donut-chart:after {
+        content: '';
+        position: absolute;
+        inset: 28px;
+        background: var(--cr);
+        border-radius: 50%;
+      }
+      .donut-legend {
+        display: grid;
+        gap: 8px;
+        font-size: 12px;
+      }
+      .donut-legend b {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-right: 8px;
+        vertical-align: middle;
+      }
+      .msg {
+        display: flex;
+        gap: 12px;
+        padding: 14px 0;
+        border-bottom: 1px solid #54243b18;
+      }
+      .msg .avatar {
+        flex-shrink: 0;
+      }
+      .msg b {
+        color: var(--w);
+        font-size: 13px;
+      }
+      .msg span {
+        display: block;
+        font-size: 11px;
+        color: var(--tau);
+      }
+      .msg p {
+        font-size: 12px;
+        color: #181416;
+        margin: 5px 0 0;
+      }
+      .profile-card {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        gap: 24px;
+        align-items: start;
+      }
+      .profile-card img {
+        width: 160px;
+        height: 160px;
+        background: var(--w);
+        border-radius: 50%;
+      }
+      .profile-info h3 {
+        font: 600 2rem 'Cormorant Garamond';
+        color: var(--w);
+        margin: 0 0 6px;
+      }
+      .profile-info p {
+        font-size: 13px;
+        color: var(--tau);
+        margin: 0 0 16px;
+      }
+      .profile-info dl {
+        display: grid;
+        grid-template-columns: 100px 1fr;
+        gap: 8px 14px;
+        font-size: 13px;
+      }
+      .profile-info dt {
+        color: var(--tau);
+        font-weight: 700;
+      }
+      .profile-info dd {
+        margin: 0;
+        color: var(--w);
+        font-weight: 600;
+      }
+      .scrim {
+        position: fixed;
+        inset: 0;
+        z-index: 30;
+        background: #181416aa;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s;
+      }
+      .scrim.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      @media (max-width: 900px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        .sidebar {
+          position: fixed;
+          z-index: 40;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          width: 260px;
+          transform: translateX(-105%);
+          transition: 0.35s;
+        }
+        .sidebar.open {
+          transform: none;
+        }
+        .menu-btn {
+          display: block;
+        }
+        .sidebar-close {
+          display: block;
+        }
+        .cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .grid2,
+        .chart-row {
+          grid-template-columns: 1fr;
+        }
+        .table-wrap {
+          overflow-x: auto;
+        }
+        .profile-card {
+          grid-template-columns: 1fr;
+          justify-items: center;
+        }
+      }
+      @media (max-width: 520px) {
+        .cards {
+          grid-template-columns: 1fr;
+        }
+        .main {
+          padding: 22px 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar" id="sidebar">
+        <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">×</button>
+        <div class="brand">
+          <img src="assets/stackly-logo-orange.webp" alt="NGO Charity" class="logo-img" />
+        </div>
+        <nav class="nav">
+          <button class="active" data-panel="overview">
+            <i>◈</i>
+            Overview
+          </button>
+          <button data-panel="campaigns">
+            <i>◆</i>
+            Campaigns
+          </button>
+          <button data-panel="donations">
+            <i>₹</i>
+            Donations
+          </button>
+          <button data-panel="volunteers">
+            <i>◉</i>
+            Volunteers
+          </button>
+          <button data-panel="messages">
+            <i>✉</i>
+            Messages
+          </button>
+          <button data-panel="reports">
+            <i>▣</i>
+            Reports
+          </button>
+          <div class="sep"></div>
+          <button data-panel="profile">
+            <i>◐</i>
+            Profile
+          </button>
+          <button id="logout">
+            <i>↩</i>
+            Logout
+          </button>
+        </nav>
+      </aside>
+      <main class="main">
+        <div class="topbar">
+          <button class="menu-btn" id="menuBtn">☰</button>
+          <h1 id="pageTitle">Overview</h1>
+          <div class="profile">
+            <div class="avatar" id="avatar">A</div>
+            <div>
+              <b id="userName">Admin</b>
+              <span id="userRole">Admin</span>
+              <small id="userEmail">admin@ngocharity.org</small>
+            </div>
+          </div>
+        </div>
+        <section class="panel active" id="overview">
+          <div class="cards">
+            <div class="card">
+              <b>₹</b>
+              <strong>₹48.2L</strong>
+              <span>Total donations</span>
+            </div>
+            <div class="card">
+              <b>◆</b>
+              <strong>12</strong>
+              <span>Active campaigns</span>
+            </div>
+            <div class="card">
+              <b>◉</b>
+              <strong>148</strong>
+              <span>Volunteers</span>
+            </div>
+            <div class="card">
+              <b>✦</b>
+              <strong>32k</strong>
+              <span>People helped</span>
+            </div>
+          </div>
+          <div class="chart-row">
+            <div class="section-card">
+              <h2>Donations by month</h2>
+              <div class="bars">
+                <div class="bar-row">
+                  <span>January</span>
+                  <div class="track"><span style="width: 55%"></span></div>
+                  <b>₹3.2L</b>
+                </div>
+                <div class="bar-row">
+                  <span>February</span>
+                  <div class="track"><span style="width: 72%"></span></div>
+                  <b>₹4.1L</b>
+                </div>
+                <div class="bar-row">
+                  <span>March</span>
+                  <div class="track"><span style="width: 48%"></span></div>
+                  <b>₹2.8L</b>
+                </div>
+                <div class="bar-row">
+                  <span>April</span>
+                  <div class="track"><span style="width: 88%"></span></div>
+                  <b>₹5.1L</b>
+                </div>
+                <div class="bar-row">
+                  <span>May</span>
+                  <div class="track"><span style="width: 65%"></span></div>
+                  <b>₹3.8L</b>
+                </div>
+                <div class="bar-row">
+                  <span>June</span>
+                  <div class="track"><span style="width: 94%"></span></div>
+                  <b>₹5.4L</b>
+                </div>
+              </div>
+            </div>
+            <div class="section-card">
+              <h2>Funds allocation</h2>
+              <div class="donut">
+                <div class="donut-chart"></div>
+                <div class="donut-legend">
+                  <div>
+                    <b style="background: var(--t)"></b>
+                    Education — 42%
+                  </div>
+                  <div>
+                    <b style="background: var(--g)"></b>
+                    Healthcare — 26%
+                  </div>
+                  <div>
+                    <b style="background: var(--w)"></b>
+                    Community — 32%
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="section-card">
+            <h2>Recent donations</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Donor</th>
+                    <th>Amount</th>
+                    <th>Campaign</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Priya Sharma</td>
+                    <td>₹5,000</td>
+                    <td>Classroom renewal</td>
+                    <td>21 Sep</td>
+                    <td><span class="tag ok">Confirmed</span></td>
+                  </tr>
+                  <tr>
+                    <td>Rahul Verma</td>
+                    <td>₹2,500</td>
+                    <td>Nutrition close to home</td>
+                    <td>20 Sep</td>
+                    <td><span class="tag ok">Confirmed</span></td>
+                  </tr>
+                  <tr>
+                    <td>Megha Iyer</td>
+                    <td>₹10,000</td>
+                    <td>Women lead forward</td>
+                    <td>19 Sep</td>
+                    <td><span class="tag pend">Pending</span></td>
+                  </tr>
+                  <tr>
+                    <td>Karan Mehta</td>
+                    <td>₹1,000</td>
+                    <td>Care that travels</td>
+                    <td>18 Sep</td>
+                    <td><span class="tag ok">Confirmed</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section class="panel" id="campaigns">
+          <div class="grid2">
+            <div class="campaign-card">
+              <span class="status active">Active</span>
+              <h3>Classroom renewal</h3>
+              <p>Rural school infrastructure across Maharashtra.</p>
+              <div class="bar"><span style="width: 72%"></span></div>
+              <div class="meta">
+                <span>₹36.2L raised</span>
+                <b>72%</b>
+              </div>
+              <div class="actions">
+                <button>Edit</button>
+                <button class="del">Delete</button>
+              </div>
+            </div>
+            <div class="campaign-card">
+              <span class="status review">In review</span>
+              <h3>Nutrition close to home</h3>
+              <p>Weekly food kits for 500 families.</p>
+              <div class="bar"><span style="width: 61%"></span></div>
+              <div class="meta">
+                <span>₹12.2L raised</span>
+                <b>61%</b>
+              </div>
+              <div class="actions">
+                <button>Edit</button>
+                <button class="del">Delete</button>
+              </div>
+            </div>
+            <div class="campaign-card">
+              <span class="status active">Active</span>
+              <h3>Women lead forward</h3>
+              <p>Micro-grants for 120 women.</p>
+              <div class="bar"><span style="width: 83%"></span></div>
+              <div class="meta">
+                <span>₹16.6L raised</span>
+                <b>83%</b>
+              </div>
+              <div class="actions">
+                <button>Edit</button>
+                <button class="del">Delete</button>
+              </div>
+            </div>
+            <div class="campaign-card">
+              <span class="status done">Completed</span>
+              <h3>Winter warmth drive</h3>
+              <p>Blankets and warm clothing for 2,000 people.</p>
+              <div class="bar"><span style="width: 100%"></span></div>
+              <div class="meta">
+                <span>₹8L raised</span>
+                <b>100%</b>
+              </div>
+              <div class="actions"><button>View</button></div>
+            </div>
+          </div>
+        </section>
+        <section class="panel" id="donations">
+          <div class="section-card">
+            <h2>All donations</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Donor</th>
+                    <th>Amount</th>
+                    <th>Campaign</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Priya Sharma</td>
+                    <td>₹5,000</td>
+                    <td>Classroom renewal</td>
+                    <td>21 Sep</td>
+                    <td><span class="tag ok">Confirmed</span></td>
+                  </tr>
+                  <tr>
+                    <td>Rahul Verma</td>
+                    <td>₹2,500</td>
+                    <td>Nutrition close to home</td>
+                    <td>20 Sep</td>
+                    <td><span class="tag ok">Confirmed</span></td>
+                  </tr>
+                  <tr>
+                    <td>Megha Iyer</td>
+                    <td>₹10,000</td>
+                    <td>Women lead forward</td>
+                    <td>19 Sep</td>
+                    <td><span class="tag pend">Pending</span></td>
+                  </tr>
+                  <tr>
+                    <td>Karan Mehta</td>
+                    <td>₹1,000</td>
+                    <td>Care that travels</td>
+                    <td>18 Sep</td>
+                    <td><span class="tag ok">Confirmed</span></td>
+                  </tr>
+                  <tr>
+                    <td>Sneha Rao</td>
+                    <td>₹15,000</td>
+                    <td>Classroom renewal</td>
+                    <td>17 Sep</td>
+                    <td><span class="tag ok">Confirmed</span></td>
+                  </tr>
+                  <tr>
+                    <td>Aditya Nair</td>
+                    <td>₹3,000</td>
+                    <td>Women lead forward</td>
+                    <td>16 Sep</td>
+                    <td><span class="tag pend">Pending</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section class="panel" id="volunteers">
+          <div class="section-card">
+            <h2>Volunteer directory</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Activity</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Ananya Rao</td>
+                    <td>Field coordinator</td>
+                    <td>3 events this month</td>
+                    <td><span class="tag ok">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td>Suresh Borkar</td>
+                    <td>Health volunteer</td>
+                    <td>5 events this month</td>
+                    <td><span class="tag ok">Active</span></td>
+                  </tr>
+                  <tr>
+                    <td>Leela Shah</td>
+                    <td>Education mentor</td>
+                    <td>2 events this month</td>
+                    <td><span class="tag pend">On break</span></td>
+                  </tr>
+                  <tr>
+                    <td>Karan Mehta</td>
+                    <td>Logistics</td>
+                    <td>1 event this month</td>
+                    <td><span class="tag ok">Active</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        <section class="panel" id="messages">
+          <div class="section-card">
+            <h2>Recent inquiries</h2>
+            <div class="msg">
+              <div class="avatar">P</div>
+              <div>
+                <b>Priya Sharma</b>
+                <span>21 Sep · Volunteer enquiry</span>
+                <p>I'd love to help with the classroom renewal campaign this October. Are there weekend slots?</p>
+              </div>
+            </div>
+            <div class="msg">
+              <div class="avatar">R</div>
+              <div>
+                <b>Rahul Verma</b>
+                <span>20 Sep · Corporate partnership</span>
+                <p>Our company wants to match employee donations up to ₹2L. Who should I speak with?</p>
+              </div>
+            </div>
+            <div class="msg">
+              <div class="avatar">M</div>
+              <div>
+                <b>Megha Iyer</b>
+                <span>19 Sep · General</span>
+                <p>Can I set up a monthly recurring donation to the nutrition campaign?</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="panel" id="reports">
+          <div class="cards">
+            <div class="card">
+              <b>₹</b>
+              <strong>₹48.2L</strong>
+              <span>Total raised</span>
+            </div>
+            <div class="card">
+              <b>◆</b>
+              <strong>342</strong>
+              <span>Projects done</span>
+            </div>
+            <div class="card">
+              <b>✦</b>
+              <strong>32k</strong>
+              <span>People helped</span>
+            </div>
+            <div class="card">
+              <b>%</b>
+              <strong>94%</strong>
+              <span>Funds to field</span>
+            </div>
+          </div>
+          <div class="section-card">
+            <h2>Campaign performance</h2>
+            <div class="bars">
+              <div class="bar-row">
+                <span>Education</span>
+                <div class="track"><span style="width: 85%"></span></div>
+                <b>85%</b>
+              </div>
+              <div class="bar-row">
+                <span>Healthcare</span>
+                <div class="track"><span style="width: 68%"></span></div>
+                <b>68%</b>
+              </div>
+              <div class="bar-row">
+                <span>Nutrition</span>
+                <div class="track"><span style="width: 72%"></span></div>
+                <b>72%</b>
+              </div>
+              <div class="bar-row">
+                <span>Community</span>
+                <div class="track"><span style="width: 58%"></span></div>
+                <b>58%</b>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="panel" id="profile">
+          <div class="section-card">
+            <h2>Your profile</h2>
+            <div class="profile-card">
+              <div
+                class="avatar"
+                style="
+                  width: 160px;
+                  height: 160px;
+                  border-radius: 50%;
+                  font-size: 48px;
+                  background: var(--t);
+                  color: var(--cr);
+                  display: grid;
+                  place-items: center;
+                "
+                id="bigAvatar"
+              >
+                A
+              </div>
+              <div class="profile-info">
+                <h3 id="pName">Admin User</h3>
+                <p>Administrator · NGO Charity</p>
+                <dl>
+                  <dt>Email</dt>
+                  <dd id="pEmail">admin@ngocharity.org</dd>
+                  <dt>Role</dt>
+                  <dd id="pRole">Admin</dd>
+                  <dt>Member since</dt>
+                  <dd>2024</dd>
+                  <dt>Status</dt>
+                  <dd>Active</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <div class="scrim" id="scrim"></div>
+    <script>
+      if (localStorage.getItem('isLoggedIn') !== 'true' || localStorage.getItem('userRole') !== 'admin')
+        window.location.href = 'login.html';
+      const name = localStorage.getItem('userName') || 'Admin';
+      const email = localStorage.getItem('userEmail') || 'admin@ngocharity.org';
+      document.querySelector('#userName').textContent = name;
+      document.querySelector('#userRole').textContent = 'Admin';
+      document.querySelector('#userEmail').textContent = email;
+      document.querySelector('#avatar').textContent = name.charAt(0).toUpperCase();
+      document.querySelector('#pName').textContent = name;
+      document.querySelector('#pEmail').textContent = email;
+      document.querySelector('#pRole').textContent = 'Admin';
+      document.querySelector('#bigAvatar').textContent = name.charAt(0).toUpperCase();
+      const navBtns = document.querySelectorAll('.nav button[data-panel]');
+      const panels = document.querySelectorAll('.panel');
+      const title = document.querySelector('#pageTitle');
+      navBtns.forEach(
+        btn =>
+          (btn.onclick = () => {
+            navBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            panels.forEach(p => p.classList.remove('active'));
+            document.querySelector('#' + btn.dataset.panel).classList.add('active');
+            title.textContent = btn.textContent.trim();
+            closeSidebar();
+          })
+      );
+      document.querySelector('#logout').onclick = () => {
+        localStorage.clear();
+        window.location.href = 'login.html';
+      };
+      const sidebar = document.querySelector('#sidebar'),
+        scrim = document.querySelector('#scrim'),
+        menuBtn = document.querySelector('#menuBtn'),
+        sidebarClose = document.querySelector('#sidebarClose');
+      function closeSidebar() {
+        sidebar.classList.remove('open');
+        scrim.classList.remove('open');
+      }
+      menuBtn.onclick = () => {
+        sidebar.classList.toggle('open');
+        scrim.classList.toggle('open');
+      };
+      sidebarClose.onclick = closeSidebar;
+      scrim.onclick = closeSidebar;
+      document.addEventListener('keydown', e => e.key === 'Escape' && closeSidebar());
+    </script>
+  </body>
+</html>
