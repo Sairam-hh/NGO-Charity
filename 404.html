@@ -19,18 +19,23 @@
       * {
         box-sizing: border-box;
       }
+      html,
+      body {
+        height: 100%;
+      }
       body {
         margin: 0;
-        min-height: 100vh;
+        height: 100vh;
+        height: 100dvh;
         background: var(--m);
         color: var(--cr);
         font: 14px/1.6 Manrope;
-        overflow-x: hidden;
+        overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: 40px 20px;
+        padding: clamp(16px, 3vh, 40px) 20px;
       }
       body:before {
         content: '';
@@ -82,14 +87,20 @@
       }
       .content {
         max-width: 620px;
+        width: 100%;
+        max-height: 100%;
         position: relative;
         z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
       }
       .line {
         height: 1px;
         width: 60px;
         background: var(--g);
-        margin: 0 auto 30px;
+        margin: 0 auto clamp(10px, 2.5vh, 30px);
         animation: expand 2s ease infinite alternate;
       }
       @keyframes expand {
@@ -106,10 +117,10 @@
         letter-spacing: 0.18em;
         text-transform: uppercase;
         font-weight: 800;
-        margin-bottom: 20px;
+        margin-bottom: clamp(8px, 2vh, 20px);
       }
       h1 {
-        font: 700 clamp(8rem, 18vw, 16rem) 'Cormorant Garamond';
+        font: 700 clamp(4.5rem, min(16vw, 16vh), 14rem) 'Cormorant Garamond';
         line-height: 0.85;
         margin: 0;
         background: linear-gradient(135deg, var(--t), var(--g));
@@ -119,14 +130,15 @@
         animation: fadeUp 0.8s ease;
       }
       h2 {
-        font: 600 clamp(2rem, 4vw, 3.4rem) 'Cormorant Garamond';
-        margin: 24px 0 14px;
+        font: 600 clamp(1.5rem, min(4vw, 4.2vh), 3rem) 'Cormorant Garamond';
+        margin: clamp(10px, 2.4vh, 24px) 0 clamp(8px, 1.6vh, 14px);
         animation: fadeUp 0.8s ease 0.15s backwards;
       }
       p {
         color: var(--s);
         max-width: 420px;
-        margin: 0 auto 34px;
+        margin: 0 auto clamp(16px, 3.4vh, 34px);
+        font-size: clamp(12px, 1.8vh, 14px);
         animation: fadeUp 0.8s ease 0.3s backwards;
       }
       .actions {
@@ -140,7 +152,7 @@
         text-decoration: none;
       }
       .btn {
-        padding: 15px 24px;
+        padding: clamp(10px, 1.8vh, 15px) 24px;
         background: var(--t);
         color: var(--cr);
         border: 1px solid var(--t);
@@ -149,6 +161,7 @@
         text-transform: uppercase;
         font-weight: 800;
         transition: 0.3s;
+        display: inline-block;
       }
       .btn:hover {
         background: var(--c);

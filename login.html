@@ -428,6 +428,43 @@
           border-radius: 50%;
         }
       }
+
+      .left-stat {
+  display: flex;
+  gap: 30px;
+  border-top: 1px solid var(--g);
+  padding-top: 25px;
+}
+.left-stat > div {
+  padding: 6px 8px;
+  margin: -6px -8px;
+  border-radius: 2px;
+  cursor: default;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.left-stat > div:hover {
+  transform: translateY(-4px);
+  background: #d7b77a14;
+}
+.left-stat > div:hover strong {
+  color: var(--c);
+}
+.left-stat > div:hover span {
+  color: var(--g);
+}
+.left-stat strong {
+  display: block;
+  font: 600 36px 'Cormorant Garamond';
+  color: var(--g);
+  transition: color 0.3s ease;
+}
+.left-stat span {
+  font-size: 11px;
+  color: var(--s);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  transition: color 0.3s ease;
+}
     </style>
   </head>
   <body>
